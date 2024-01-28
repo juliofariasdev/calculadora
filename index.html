@@ -4,40 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CALCULADORA</title>
-    <style>/*
-        body {
-            background-color: rgb(61, 57, 68);
-        }*/
-        input {
-            border: 2px black solid;
-            width: 100px;
-            height: 15px;
-            margin: 0px;
-        }
-        input:active{
+    <style>
+        body{
             background-color: black;
         }
-        .teclas {
-            border: 2px black solid;
-            
+        table,tr,td {
+            border: 2px gray solid;
+            color:white;
         }
-        table{
-            border-collapse: collapse;
+        input, input:active{
+            border: none;
         }
     </style>
 </head>
 <body>
     <table align="center">
         <tr>
-            <td colspan="3" class="teclas" style="padding: 0px;"><input type="text"></td>
-            <td class="teclas">=</td>
+            <td colspan="3">
+                <input type="text">
+            </td>
+            <td>
+                =
+            </td>
+        </tr>
         <tr>
+            <td>9</td>
+            <td>8</td>
+            <td>7</td>
+            <td>/</td>
+        </tr>
         <tr>
-            <td class="teclas">1</td>
-            <td class="teclas">2</td>
-            <td class="teclas">3</td>
-            <td class="teclas">/</td>
-            <td></td>
+            <td>6</td>
+            <td>5</td>
+            <td>4</td>
+            <td>x</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>2</td>
+            <td>1</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>del</td>
+            <td>0</td>
+            <td>,</td>
+            <td>+</td>
         </tr>
     </table>
 </body>
