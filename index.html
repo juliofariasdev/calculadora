@@ -7,50 +7,191 @@
     <style>
         body{
             background-color: black;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: xx-large;
         }
-        table,tr,td {
+
+        td {
             border: 2px gray solid;
             color:white;
+            
         }
-        input, input:active{
-            border: none;
+
+        table{
+            margin: auto;
+            width: 600px;
+
+            border: 2px gray solid;
+            color:white;
+            border-radius: 2px;
+        }
+
+        .tecla {
+            border-style: none;
+            text-align: center;
+            width: 100px;
+            height: 100px;
+        }
+
+        .numero{
+            background-color: gray;
+        }
+
+        #entrada {
+            background-color: white;
+            border-style: none;
+            width: 100px;
+            height: 100px;
+            color: black;
+            text-align: right;
+        }
+        .acao{
+            background-color: orange;
         }
     </style>
 </head>
 <body>
-    <table align="center">
+    <table >
         <tr>
-            <td colspan="3">
-                <input type="text">
-            </td>
-            <td>
-                =
-            </td>
+            <td colspan="3" id="entrada"></td>
+            <td class="tecla" style="background-color: cornflowerblue;" onclick="resultado()">=</td>
         </tr>
         <tr>
-            <td>9</td>
-            <td>8</td>
-            <td>7</td>
-            <td>/</td>
+            <td class="numero tecla" onclick="add(9)">9</td>
+            <td class="numero tecla" onclick="add(8)">8</td>
+            <td class="numero tecla" onclick="add(7)">7</td>
+            <td class="tecla acao" onclick="operador('/')">/</td>
         </tr>
         <tr>
-            <td>6</td>
-            <td>5</td>
-            <td>4</td>
-            <td>x</td>
+            <td class="numero tecla" onclick="add(6)">6</td>
+            <td class="numero tecla" onclick="add(5)">5</td>
+            <td class="numero tecla" onclick="add(4)">4</td>
+            <td class="tecla acao" onclick="operador('*')">*</td>
         </tr>
         <tr>
-            <td>3</td>
-            <td>2</td>
-            <td>1</td>
-            <td>-</td>
+            <td class="numero tecla" onclick="add(3)">3</td>
+            <td class="numero tecla" onclick="add(2)">2</td>
+            <td class="numero tecla" onclick="add(1)">1</td>
+            <td class="tecla acao" onclick="operador('-')">-</td>
         </tr>
         <tr>
-            <td>del</td>
-            <td>0</td>
-            <td>,</td>
-            <td>+</td>
+            <td class="tecla numero" onclick="remover()">del</td>
+            <td class="numero tecla" onclick="add(0)">0</td>
+            <td class="tecla numero" onclick="operador('.')">.</td>
+            <td class="tecla acao" onclick="operador('+')">+</td>
         </tr>
     </table>
+
+    <script>
+        let tipo1 = 0, tipo2 =0
+        function alertar() {
+            let entrada = document.getElementById('entrada').innerText;
+            alert(entrada);
+        };
+
+        function add(number){
+            document.getElementById('entrada').innerText += number;
+        };
+
+        function remover(){
+            let objeto = document.getElementById('entrada');
+            let t = objeto.innerText.length - 1;
+            objeto.innerText = objeto.innerText.slice(0,t);
+        };
+
+        function operador(ope){
+            let objeto = document.getElementById('entrada');
+            let texto = objeto.innerText;
+            let size = objeto.innerText.length - 1;
+            let l = texto[size];
+            if(l ==undefined){
+                return
+            };
+            if(l=='/' || l=='*' || l=='-' || l=='+' || l=='.'){
+                remover();
+            };
+            if(ope=='/' || ope=='*'){
+                tipo1 +=1
+            }else if(ope=='-' || ope=='+'){
+                tipo2 += 1
+            }
+            add(ope);
+        }
+            function res1(dado){
+                let k = ''
+                var nome = dado
+                let v = false
+                for (let i = 0; i<nome.length;i++){
+                    let c = nome[i];
+                    if (c=='/' || c=='*' || c=='-' || c=='+'){
+                    }else{
+                        k = k + c
+                    };
+                    if(c=='/' || c=='*'){
+                        let o =''
+                        v = true
+                        for(var d = i+1; d<nome.length;d++){{
+                            let l = nome[d]
+                            if (l=='/' || l=='*' || l=='-' || l=='+'){
+                                break
+                            };
+                        var x = parseFloat(nome.slice(i+1,d+1));
+                        }};
+                    let ope = c=='/'?parseFloat(k)/x:parseFloat(k)*x
+                    k = ''
+                    nome = ope + nome.slice(d,nome.length)
+                    if(v){
+                        break
+                    }
+                    };
+                };
+                return nome
+    };
+
+    function res2(dado){
+                let k = ''
+                var nome = dado
+                let v = false
+                for (let i = 0; i<nome.length;i++){
+                    let c = nome[i];
+                    if (c=='/' || c=='*' || c=='-' || c=='+'){
+                    }else{
+                        k = k + c
+                    };
+                    if(c=='-' || c=='+'){
+                        let o =''
+                        v = true
+                        for(var d = i+1; d<nome.length;d++){{
+                            let l = nome[d]
+                            if (l=='/' || l=='*' || l=='-' || l=='+'){
+                                break
+                            };
+                        var x = parseFloat(nome.slice(i+1,d+1))
+                        }};
+                    let ope = c=='-'?parseFloat(k)-x:parseFloat(k)+x
+                    k = ''
+                    nome = ope + nome.slice(d,nome.length)
+                    if(v){
+                        break
+                    }
+                    };
+                };
+                return nome
+    };
+    function resultado(){
+        let objeto = document.getElementById('entrada');
+        let texto = objeto.innerText;
+        for(let i = 0;i<tipo1;i++){
+            texto = res1(texto)
+        }
+        for(let i = 0;i<tipo2;i++){
+            texto = res2(texto)
+        }
+        tipo1 = 0
+        tipo2 = 0
+        document.getElementById('entrada').innerText = texto
+    }
+
+    </script>
 </body>
 </html>
