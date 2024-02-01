@@ -99,12 +99,29 @@
       }
 
       function add(number) {
+        let objeto = document.getElementById("entrada");
+        let texto = objeto.innerText;
+        let size = objeto.innerText.length - 1;
+        let l = texto[size];
+        if (l == "/" || l == "*" || l == "-" || l == "+") {
+          f = 0;
+        }
         document.getElementById("entrada").innerText += number;
       }
 
       function remover() {
         let objeto = document.getElementById("entrada");
+        let texto = objeto.innerText;
+        let size = objeto.innerText.length - 1;
+        let l = texto[size];
+        if(l=='.'){
+          f = 0
+        }
         let t = objeto.innerText.length - 1;
+        if (objeto.innerText == Infinity) {
+          objeto.innerText = "";
+          return;
+        }
         objeto.innerText = objeto.innerText.slice(0, t);
       }
 
@@ -132,6 +149,9 @@
           f++;
         }
         if (f > 1 && ope == ".") {
+          if (l == ".") {
+            add(".");
+          }
           return null;
         }
         add(ope);
@@ -227,10 +247,18 @@
         }
         tipo1 = 0;
         tipo2 = 0;
-        if (texto % 1 === 0) {
-        } else {
+        if (parseFloat(texto) % 1 == 0) {
           f = 0;
+        } else {
+          f = 2;
+          if (texto.length > 17) {
+          texto = parseFloat(texto).toPrecision(16);
+          while (texto[texto.length - 1] == "0") {
+            texto = texto.slice(0, texto.length - 1);
+          }
         }
+        }
+        
         document.getElementById("entrada").innerText = texto;
       }
     </script>
